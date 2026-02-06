@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hors ligne - TicketPro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      color: #1f2937;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    
+    p {
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>Vous êtes hors ligne</h1>
+    <p>
+      Impossible de se connecter au serveur. Vérifiez votre connexion internet et réessayez.
+    </p>
+    <button class="btn" onclick="window.location.reload()">
+      🔄 Réessayer
+    </button>
+    <div class="status" id="status">
+      Vérification de la connexion...
+    </div>
+  </div>
+  
+  <script>
+    // Vérifier la connexion périodiquement
+    function checkConnection() {
+      const status = document.getElementById('status');
+      
+      if (navigator.onLine) {
+        status.textContent = '✅ Connexion détectée ! Cliquez sur Réessayer.';
+        status.style.background = '#d1fae5';
+        status.style.color = '#065f46';
+      } else {
+        status.textContent = '❌ Toujours hors ligne...';
+        status.style.background = '#fee2e2';
+        status.style.color = '#991b1b';
+      }
+    }
+    
+    // Vérifier toutes les 3 secondes
+    setInterval(checkConnection, 3000);
+    checkConnection();
+    
+    // Écouter les changements de connexion
+    window.addEventListener('online', () => {
+      checkConnection();
+    });
+    
+    window.addEventListener('offline', () => {
+      checkConnection();
+    });
+  </script>
+</body>
+</html>
