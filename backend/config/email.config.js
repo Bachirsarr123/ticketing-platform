@@ -13,6 +13,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD, // App Password Gmail
     },
+    // Force l'utilisation d'IPv4 pour éviter les problèmes de réseau sur Render/Docker
+    family: 4,
 });
 
 // Vérifier la connexion
